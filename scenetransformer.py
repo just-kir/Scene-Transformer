@@ -16,7 +16,7 @@ import numpy as np
 from pprint import pprint
 import math
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+#device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 class MLP_bn2d(nn.Module):
     def __init__(self, in_features, A, D, hidden_dim = None, softmax = False):
