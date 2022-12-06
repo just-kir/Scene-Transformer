@@ -8,7 +8,6 @@ import torch.nn as nn
 import torch.optim as optim
 import tqdm as tq
 
-#import torch.distributions as D
 import torch.nn.functional as Ff
 
 import torchvision
@@ -18,7 +17,6 @@ from pprint import pprint
 import math
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-#from transformers import get_cosine_schedule_with_warmup
 
 class MLP_bn2d(nn.Module):
     def __init__(self, in_features, A, D, hidden_dim = None, softmax = False):
@@ -34,7 +32,6 @@ class MLP_bn2d(nn.Module):
 
     def forward(self, input):  # Input is a 1D tensor
         y = Ff.relu(self.bn1(self.linear1(input)))
-        #y = F.softmax(self.linear2(y), dim=1)
         y = self.bn2(self.linear2(y))
         if self.softmax_i == True:
           y = self.softmax(y)
@@ -107,8 +104,6 @@ class SceneEncoder(nn.Module):
     y = self.att_a3(y)
     y = y.reshape(B, self.T, self.A, self.D).transpose(1, 2)
 
-    #mean1 = torch.mean(y, 1, keepdim=True)
-    #y = torch.cat((y, mean1), 1)
     mean2 = torch.mean(y, 2, keepdim=True)
     y = torch.cat((y, mean2), 2)
 
